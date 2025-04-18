@@ -1,0 +1,33 @@
+[
+    {
+      "name": "Heritage Leather Tote",
+      "description": "Elegant and spacious tote crafted with premium Italian leather for timeless luxury.",
+      "price": 1200,
+      "imageUrl": "https://images.unsplash.com/photo-1526178612533-cc78d06b1c34"
+    },
+    {
+      "name": "Signature Gold Wallet",
+      "description": "Compact wallet with gold trim, designed for sleek sophistication.",
+      "price": 480,
+      "imageUrl": "https://images.unsplash.com/photo-1600180758890-d09fddf1f9b4"
+    },
+    {
+      "name": "Classic Business Bag",
+      "description": "Structured leather bag tailored for the elite professional with refined taste.",
+      "price": 1050,
+      "imageUrl": "https://images.unsplash.com/photo-1542831371-29b0f74f9713"
+    },
+    {
+      "name": "Monogram Zip Pouch",
+      "description": "Small yet statement-making zip pouch with luxury monogram finish.",
+      "price": 320,
+      "imageUrl": "https://images.unsplash.com/photo-1600181953651-9fa25c70cbf2"
+    },
+    {
+      "name": "Velvet Jewel Clutch",
+      "description": "Evening clutch wrapped in royal velvet, detailed with crystal accents.",
+      "price": 875,
+      "imageUrl": "https://images.unsplash.com/photo-1581579186901-5dd678d8b4c6"
+    }
+  ]
+  

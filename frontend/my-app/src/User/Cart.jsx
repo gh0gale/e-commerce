@@ -1,19 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Cart.css';
+import axios from 'axios';
 
 const Cart = () => {
-  const cartItems = [
-    {
-      name: "Heritage Leather Tote",
-      quantity: 1,
-      price: 1200
-    },
-    {
-      name: "Signature Gold Wallet",
-      quantity: 2,
-      price: 480
-    }
-  ];
+  const [cartItems, setCartItems] = useState([]);
+
+  useEffect(() => {
+    const items = JSON.parse(localStorage.getItem('cartItems')) || [];
+    setCartItems(items);
+  }, []);
 
   const totalAmount = cartItems.reduce(
     (total, item) => total + item.quantity * item.price,
