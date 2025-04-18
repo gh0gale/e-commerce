@@ -1,14 +1,27 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import './Login.css';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle login functionality here
-    console.log('Logging in with:', email, password);
+
+    try {
+      const res = await axios.post('http://localhost:4001/user/login', {
+        email,
+        password
+      });
+
+      alert("Login successful!");
+      console.log("Login success:", res.data);
+      window.location.href = "/products";
+    } catch (err) {
+      console.error("Login error:", err.response?.data || err.message);
+      alert(err.response?.data?.message || "Login failed");
+    }
   };
 
   return (

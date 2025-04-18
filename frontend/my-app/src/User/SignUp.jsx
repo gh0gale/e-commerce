@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import './Signup.css';
 
 const Signup = () => {
   const [formData, setFormData] = useState({
-    username: '',
+    name: '',
     email: '',
     password: '',
     confirmPassword: ''
@@ -14,10 +15,27 @@ const Signup = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add signup logic here
-    console.log(formData);
+
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+
+    try {
+      const res = await axios.post('http://localhost:4001/user/signup', {
+        name: formData.name,
+        email: formData.email,
+        password: formData.password
+      });
+
+      alert(res.data.message || "Signup successful!");
+      window.location.href = "/login";
+    } catch (err) {
+      console.error("Signup error:", err.response?.data || err.message);
+      alert(err.response?.data?.message || "Signup failed");
+    }
   };
 
   return (
@@ -26,12 +44,12 @@ const Signup = () => {
         <h2>Sign Up</h2>
         <form onSubmit={handleSubmit}>
           <div className="input-group">
-            <label htmlFor="username">Username</label>
+            <label htmlFor="name">Username</label>
             <input
               type="text"
-              id="username"
-              name="username"
-              value={formData.username}
+              id="name"
+              name="name"
+              value={formData.name}
               onChange={handleChange}
               required
             />

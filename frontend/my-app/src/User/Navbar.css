@@ -31,4 +31,19 @@
   .nav-links .active {
     color: #C9B037;
   }
+
+  .logout-btn {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    margin-left: 1rem;
+    transition: color 0.3s ease;
+  }
+  
+  .logout-btn:hover {
+    color: #00fca7;
+  }
+  
   
