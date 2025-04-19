@@ -1,42 +1,3 @@
-// import Cart from "../model/cart.model.js";
-
-// export const getCart = async (req, res) => {
-//   try {
-//     const cart = await Cart.findOne({ userId: req.user.id }).populate(
-//       "items.productId"
-//     );
-//     res.status(200).json(cart || { items: [] });
-//   } catch (err) {
-//     res.status(500).json({ error: "Failed to fetch cart" });
-//   }
-// };
-
-// export const addToCart = async (req, res) => {
-//   const { productId } = req.body;
-//   try {
-//     let cart = await Cart.findOne({ userId: req.user.id });
-
-//     if (!cart) {
-//       cart = new Cart({
-//         userId: req.user.id,
-//         items: [{ productId, quantity: 1 }],
-//       });
-//     } else {
-//       const item = cart.items.find((i) => i.productId.equals(productId));
-//       if (item) {
-//         item.quantity += 1;
-//       } else {
-//         cart.items.push({ productId, quantity: 1 });
-//       }
-//     }
-
-//     await cart.save();
-//     res.status(200).json(cart);
-//   } catch (err) {
-//     res.status(500).json({ error: "Failed to update cart" });
-//   }
-// };
-
 import Cart from "../model/cart.model.js";
 
 export const getCart = async (req, res) => {
@@ -59,6 +20,8 @@ export const getCart = async (req, res) => {
     }));
 
     res.status(200).json({ items: formattedItems });
+    
+
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Failed to fetch cart" });
