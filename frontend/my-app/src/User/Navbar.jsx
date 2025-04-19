@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  // Update login status on route change
   useEffect(() => {
     const token = localStorage.getItem('token');
     setIsLoggedIn(!!token);
-  }, [localStorage.getItem('token')]); // This might not trigger re-renders, see tip below 👇
+  }, [location]);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     setIsLoggedIn(false);
-    alert("You have been logged out!");
+    alert('Logged out successfully!');
     navigate('/login');
   };
 
@@ -26,6 +28,8 @@ const Navbar = () => {
         <NavLink to="/about">About Us</NavLink>
         <NavLink to="/products">Products</NavLink>
         <NavLink to="/cart">Cart</NavLink>
+
+        {/* Show login/signup if not logged in, else logout */}
         {!isLoggedIn ? (
           <>
             <NavLink to="/login">Login</NavLink>

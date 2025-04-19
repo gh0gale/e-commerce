@@ -1,30 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
+import { CartContext } from '../User/CartContext';
 import './Products.css';
 
 const Products = () => {
   const [products, setProducts] = useState([]);
-  const [cart, setCart] = useState([]);
+  const { addToCart } = useContext(CartContext);
 
   useEffect(() => {
     axios.get('http://localhost:4001/product')
       .then(res => setProducts(res.data))
       .catch(err => console.error('Error fetching products:', err));
   }, []);
-
-  const addToCart = (product) => {
-    const updatedCart = [...cart];
-    const existingItem = updatedCart.find(item => item._id === product._id);
-
-    if (existingItem) {
-      existingItem.quantity += 1;
-    } else {
-      updatedCart.push({ ...product, quantity: 1 });
-    }
-
-    setCart(updatedCart);
-    localStorage.setItem('cartItems', JSON.stringify(updatedCart));
-  };
 
   return (
     <div className="products-container">

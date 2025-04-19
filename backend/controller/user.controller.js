@@ -1,7 +1,8 @@
+
 import User from "../model/user.model.js";
 import bcrypt from "bcrypt";
+import { generateToken } from "../utils/generateToken.js";
 
-// Register a new user
 export const signup = async (req, res) => {
   const { name, email, password } = req.body;
 
@@ -14,14 +15,19 @@ export const signup = async (req, res) => {
     const user = new User({ name, email, password: hashedPassword });
 
     await user.save();
-    res.status(201).json({ message: "User registered successfully" });
+
+    const token = generateToken(user);
+
+    res.status(201).json({
+      message: "User registered successfully",
+      token,
+      user: { name: user.name, email: user.email }
+    });
   } catch (error) {
-    console.error(error);
     res.status(500).json({ message: "Server error" });
   }
 };
 
-// Login a user
 export const login = async (req, res) => {
   const { email, password } = req.body;
 
@@ -34,9 +40,14 @@ export const login = async (req, res) => {
     if (!isMatch)
       return res.status(400).json({ message: "Invalid email or password" });
 
-    res.status(200).json({ message: "Login successful", user: { name: user.name, email: user.email } });
+    const token = generateToken(user);
+
+    res.status(200).json({
+      message: "Login successful",
+      token,
+      user: { name: user.name, email: user.email }
+    });
   } catch (error) {
-    console.error(error);
     res.status(500).json({ message: "Server error" });
   }
 };

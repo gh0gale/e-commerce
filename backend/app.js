@@ -1,11 +1,11 @@
+import express from "express";
+import mongoose from "mongoose";
+import cors from "cors";
+import dotenv from "dotenv";
 
-import express from 'express';
-import mongoose from 'mongoose';
-import cors from 'cors';
-import dotenv from 'dotenv';
-
-import productRoute from './routes/product.route.js';
-import userRoute from './routes/user.route.js';
+import productRoute from "./routes/product.route.js";
+import userRoute from "./routes/user.route.js";
+import cartRoutes from "./routes/cart.route.js";
 
 dotenv.config();
 
@@ -20,29 +20,26 @@ app.use(express.json());
 // Routes
 app.use("/product", productRoute);
 app.use("/user", userRoute);
+app.use("/cart", cartRoutes);
 
 // Test route
-app.get('/', (req, res) => {
-  res.send('Hello World !');
+app.get("/", (req, res) => {
+  res.send("Hello World !");
 });
 
 // Connect to MongoDB
-mongoose.connect(URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-.then(() => {
-  console.log("Connected to mongoDB");
-  // Start server *after* DB connects
-  app.listen(PORT, () => {
-    console.log(`Server is listening on port ${PORT}`);
+mongoose
+  .connect(URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("Connected to mongoDB");
+
+    app.listen(PORT, () => {
+      console.log(`Server is listening on port ${PORT}`);
+    });
+  })
+  .catch((error) => {
+    console.log("MongoDB connection error:", error);
   });
-})
-.catch((error) => {
-  console.log("MongoDB connection error:", error);
-});
-
-
-
-
-
